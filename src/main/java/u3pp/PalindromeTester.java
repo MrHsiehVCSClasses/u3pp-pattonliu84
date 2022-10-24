@@ -1,6 +1,6 @@
 package u3pp;
 
-public class PalindromeTesster {
+public class PalindromeTester {
 
     /**
      * Tests whether a string is a palindrome. Case insensitive. 
