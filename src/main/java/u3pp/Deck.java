@@ -8,6 +8,7 @@ Card[] deck = new Card[52];
 private int deckIndex = 0;
 private int cardsLeft = 52;
 
+	//intiates 52 cards
 int k = 0;
 public Deck(){
     int k = 0;
@@ -23,11 +24,12 @@ public Deck(){
     }
 }
 
+	//checks the number of cards left
     public int numLeft(){
         return cardsLeft;
 
     }
-
+        //If no cards left, shuffles the deck
     public Card deal(){
         if(cardsLeft > 0){
         deckIndex += 1;
@@ -40,7 +42,7 @@ public Deck(){
             return deck[deckIndex-1];
         } 
     }
-
+       //shuffles by exchanging the placement of deck
     public void shuffle(){
         Random rand = new Random();
         deckIndex = 0;
