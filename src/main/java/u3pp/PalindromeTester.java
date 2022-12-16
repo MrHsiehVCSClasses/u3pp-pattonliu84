@@ -2,22 +2,19 @@ package u3pp;
 
 public class PalindromeTester {
 
-    /**
-     * Tests whether a string is a palindrome. Case insensitive. 
-     * @param s  the string to test
-     * @return true if the string is a palindrome
-     */
-    public static boolean isPalindrome(String s) {
-        String reverse = "";
-
+//Palindrom test, reverses the string and sees if true. Lowers all uppercase. 
+public static boolean isPalindrome(String s) {
+    s = s.toLowerCase();
+    String reverse = "";
         for (int i = s.length() - 1; i >= 0; i--) {
             reverse = reverse + s.charAt(i);
         }
-        if (s.equals(rev)) {
+        s = s.toLowerCase();
+        reverse = reverse.toLowerCase();
+
+        if (s.equals(reverse)) {
             return true;
         }
-        return false;
-        
+    return false;
     }
 }
- 
