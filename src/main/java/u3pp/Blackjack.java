@@ -2,48 +2,80 @@ package u3pp;
 import java.util.Scanner;
 
 public class Blackjack {
-    private Deck myDeck = new Deck();
     private Card[] user;
     private Card[] dealer;
-    private boolean boPlay;
+    private boolean bo;
 
-
-    public BlackJack {
-    Deck myDeck = new Deck();
-    Card[] user = new Card[15];
-    Card[] dealer = new Card[15];
-    boPlay = false;
-    
-        myDeck.shuffle();
+    public Blackjack(){
+        user = new Card[15];
+        dealer = new Card[15];
+        bo = false;
+        Deck deck = new Deck();
+        deck.shuffle();
     }
 
-    public void play(Scanner scanner){
-        System.out.println("Lets play BlackJack! Enter: y(Yes) or n(No)");
-        String answer = scanner.nextLine();
 
-        if(answer.equals("y")){
-            System.out.println("alright, lets start playing!");
-            boPlay = true;
-        } else if (answer.equals("n")){
-        System.out.println("aw, sad to see you go!");
-            boPlay = false;
-        } else {
-            System.out.println("invalid");
-            boPlay = false;
+
+            //Determines results. If the cards that user has is smaller than dealer, then user wins. Vice versa. 
+    public static String determineResult(Card[] user, Card[] dealer){
+        int userN = calcPoints(user);
+        int dealerN = calcPoints(dealer);
+        int userLeft = 21 - userN;
+        int dealerLeft = 21 - dealerN;
+        if(dealerN == userN){
+            return "Tie";
+            } else if(userLeft < dealerLeft){
+                return "Win";
+            } else if(userLeft > dealerLeft){
+                return "Lose";
+            }
+                return null;
+            }
+
+   //If the second card is not null, and it is 21, then true and user/dealer hits blackjack. 
+    public static boolean isBlackjack(Card[] hand){
+        if(hand.length >2){
+            if(hand[2] != null){
+                return false;
+                }
+            }
+
+
+            if(calcPoints(hand) == 21){
+                return true;
+            } else {
+                return false;
+            }
+            
+    }
+
+    //Checks if busts, which is higher than 21. 
+    public static boolean isBust(Card[] hand){
+        if (calcPoints(hand) > 21) {
+            return true;
         }
-    }    
-
-    while (boPlay = true){
-        
+        return false;
     }
-    
 
-    public static int calcPoints(Card[] hand){
+         
+
+    //Continue if points are higher than 16
+    public static boolean shouldDealerKeepHitting(Card[] hand){
+        if(calcPoints(hand)<=16){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    //takes an arrays of cards and returns the amount of points.
+    public static int calcPoints(Card[]hand){
         int handValue = 0;
-        for (int i=0; i<hand.length; i++){
+        for(int i=0; i<hand.length; i++){
             if(hand[i] == null){
                 return handValue;
-            } else if(hand[i].getValue().equals("1") ||hand[i].getValue().equals("2") ||hand[i].getValue().equals("3") ||hand[i].getValue().equals("4") ||hand[i].getValue().equals("5") ||hand[i].getValue().equals("6") ||hand[i].getValue().equals("7") ||hand[i].getValue().equals("8") ||hand[i].getValue().equals("9") ||hand[i].getValue().equals("10")){
+            }
+            if(hand[i].getValue().equals("1") || hand[i].getValue().equals("2") ||hand[i].getValue().equals("3") ||hand[i].getValue().equals("4") ||hand[i].getValue().equals("5") ||hand[i].getValue().equals("6") ||hand[i].getValue().equals("7") ||hand[i].getValue().equals("8") ||hand[i].getValue().equals("9") ||hand[i].getValue().equals("10")){
             handValue += Integer.valueOf(hand[i].getValue());
             } else if(hand[i].getValue().equals("Jack") ||hand[i].getValue().equals("Queen") ||hand[i].getValue().equals("King")){
                 handValue += 10;
@@ -51,55 +83,8 @@ public class Blackjack {
                 handValue += 11;
             }
         }
-        return handValue;        
+        return handValue;       
     }
-
- 
-
-    public static String determineResult(Card[] userHand, Card[] dealerHand){
-        int userHandN = calcPoints(userHand);
-        int dealerHandN = calcPoints(dealerHand);
-
-        if(dealerHandN == userHandN){
-            return "Tie";
-
-        } else if (21 - userHandN < 21 - dealerHandN){
-            return "Win";
-
-        } else if(21 - userHandN > 21 - dealerHandN){
-            return "L";
-
-        } else {
-            return null;
-        }
-    }
-
-    public static boolean isBust(Card[] hand){
-        if(calcPoints(hand)<=21){
-            return false;
-        } else {
-            return true;
-        }
-        
-    }
-
-    public static boolean isBlackjack(Card[] hand){
-        if(hand.length >2){
-            if(hand[2] != null){
-            return false;
-            }
-        }
-            if(calcPoints(hand) == 21){
-                return true;
-            }
-            return false;
-        }
-
-    public static boolean shouldDealerKeepHitting(Card[] hand){
-        if(calcPoints(hand)<=16){
-            return true;
-        }
-        return false;
-        }
-
 }
+
+
